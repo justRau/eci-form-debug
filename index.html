@@ -48,11 +48,7 @@
         <br>
         <strong>2. Copy the text below or do a screenshot and send it to us:</strong>
 
-        <div id="logs"></div>
-        <div id="errors"></div>
-        <div id="warns"></div>
-        <div id="debugs"></div>
-        <div id="everything"></div>
+        <div id="everything" style="border: 1px solid black; background-color: #eee; padding: 0 15px;"></div>
 
         <hr style="margin-top: 30px; margin-bottom: 10px;">
 
@@ -91,7 +87,7 @@
 
                 $('#submit').click(function () {
                     var debugText = JSON.stringify(console.everything, null, 4);
-                    $('#everything').html('<pre>' + debugText + '</pre>');
+                    $('#everything').html('<pre><-----------------------\n\r' + debugText + '\n\r-----------------------></pre>');
                     recordLogAtHq(debugText, 'debug', 'debug');
 
                     var randomColor = Math.floor(Math.random()*16777215).toString(16);
