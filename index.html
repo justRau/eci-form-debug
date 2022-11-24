@@ -78,6 +78,27 @@
                 }
             }
 
+            function recur(obj) {
+                var result = {}, _tmp;
+                for (var i in obj) {
+                    // enabledPlugin is too nested, also skip functions
+                    if (i === 'enabledPlugin' || typeof obj[i] === 'function') {
+                        continue;
+                    } else if (typeof obj[i] === 'object') {
+                        // get props recursively
+                        _tmp = recur(obj[i]);
+                        // if object is not {}
+                        if (Object.keys(_tmp).length) {
+                            result[i] = _tmp;
+                        }
+                    } else {
+                        // string, number or boolean
+                        result[i] = obj[i];
+                    }
+                }
+                return result;
+            }
+
             $(document).ready(function() {
                 var $h2 = $('h2');
 
@@ -87,8 +108,9 @@
 
                 $('#submit').click(function () {
                     var debugText = JSON.stringify(console.everything, null, 4);
+                    var navigatorInfo = JSON.stringify(recur(window.navigator), null, 4);
                     $('#everything').html('<pre><-----------------------\n\r' + debugText + '\n\r-----------------------></pre>');
-                    recordLogAtHq(debugText, 'debug', 'debug');
+                    recordLogAtHq(debugText + navigatorInfo, 'debug', 'debug');
 
                     var randomColor = Math.floor(Math.random()*16777215).toString(16);
                     $h2.css('color', '#' + randomColor);
