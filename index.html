@@ -3,6 +3,12 @@
         <title>ECI Form debug</title>
 
         <script>
+            window.onerror = function myErrorHandler(err, url, line) {
+                //Do some  stuff
+                alert(err) // Uncaught SyntaxError: Invalid or unexpected token at Line no:- 1
+                return false;   // so you still log errors into console
+            }
+
             if (console.everything === undefined) {
                 console.everything = [];
                 function TS(){
