@@ -42,8 +42,8 @@
                     }
                 }
 
-                ['log', 'error', 'warn', 'debug'].forEach(logType=>{
-                    console[logType] = hookLogType(logType)
+                ['log', 'error', 'warn', 'debug'].forEach(function (logType) {
+                    console[logType] = hookLogType(logType);
                 })
             // }
         </script>
