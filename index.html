@@ -1,0 +1,107 @@
+<html lang="cs">
+    <head>
+        <title>ECI Form debug</title>
+
+        <script>
+            // console.defaultLog = console.log.bind(console);
+            // console.logs = [];
+            // console.log = function(){
+            //     // default &  console.log()
+            //     console.defaultLog.apply(console, arguments);
+            //     // new & array data
+            //     console.logs.push(Array.from(arguments));
+            // }
+            //
+            // console.defaultError = console.error.bind(console);
+            // console.errors = [];
+            // console.error = function(){
+            //     // default &  console.error()
+            //     console.defaultError.apply(console, arguments);
+            //     // new & array data
+            //     console.errors.push(Array.from(arguments));
+            // }
+            //
+            // console.defaultWarn = console.warn.bind(console);
+            // console.warns = [];
+            // console.warn = function(){
+            //     // default &  console.warn()
+            //     console.defaultWarn.apply(console, arguments);
+            //     // new & array data
+            //     console.warns.push(Array.from(arguments));
+            // }
+            //
+            // console.defaultDebug = console.debug.bind(console);
+            // console.debugs = [];
+            // console.debug = function(){
+            //     // default &  console.debug()
+            //     console.defaultDebug.apply(console, arguments);
+            //     // new & array data
+            //     console.debugs.push(Array.from(arguments));
+            // }
+
+            //////////////////////////////////
+
+            console.everything = [];
+
+            console.defaultLog = console.log.bind(console);
+            console.log = function(){
+                console.everything.push({"type":"log", "datetime":Date().toLocaleString(), "value":Array.from(arguments)});
+                console.defaultLog.apply(console, arguments);
+            }
+            console.defaultError = console.error.bind(console);
+            console.error = function(){
+                console.everything.push({"type":"error", "datetime":Date().toLocaleString(), "value":Array.from(arguments)});
+                console.defaultError.apply(console, arguments);
+            }
+            console.defaultWarn = console.warn.bind(console);
+            console.warn = function(){
+                console.everything.push({"type":"warn", "datetime":Date().toLocaleString(), "value":Array.from(arguments)});
+                console.defaultWarn.apply(console, arguments);
+            }
+            console.defaultDebug = console.debug.bind(console);
+            console.debug = function(){
+                console.everything.push({"type":"debug", "datetime":Date().toLocaleString(), "value":Array.from(arguments)});
+                console.defaultDebug.apply(console, arguments);
+            }
+        </script>
+    </head>
+    <body>
+        <h2>You should see ECI form below.</h2>
+        <strong>Click this button if you don't see it:</strong>
+
+        <button id="submit">I DON'T SEE THE FORM</button>
+
+        <div id="logs"></div>
+        <div id="errors"></div>
+        <div id="warns"></div>
+        <div id="debugs"></div>
+        <div id="everything"></div>
+
+        <hr style="margin-top: 30px; margin-bottom: 10px;">
+
+        <script src="https://sign.furfreeeurope.eu/d/fur_free_europe/svobodazvirat?v=713601355&language=cs"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.min.js" integrity="sha512-0nVWK03Ud0k6o8wDkri8jxX9zQIn00ZHVud3iqBTwd2bGFwJDQShGVb3+vX1adCRxQckKQrIQMFmIA3tfWe+Mg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script>
+            $(document).ready(function() {
+                var $h2 = $('h2');
+
+                setTimeout(function () {
+                    throw 'asd';
+                }, 1000);
+
+                $('#submit').click(function () {
+                    $('#logs').html('<pre>' + JSON.stringify(console.logs, null, 4) + '</pre>');
+                    $('#errors').html('<pre>' + JSON.stringify(console.errors, null, 4) + '</pre>');
+                    $('#warns').html('<pre>' + JSON.stringify(console.warns, null, 4) + '</pre>');
+                    $('#debugs').html('<pre>' + JSON.stringify(console.debugs, null, 4) + '</pre>');
+                    $('#everything').html('<pre>' + JSON.stringify(console.everything, null, 4) + '</pre>');
+
+                    var randomColor = Math.floor(Math.random()*16777215).toString(16);
+                    $h2.css('color', '#' + randomColor);
+                });
+            });
+        </script>
+    </body>
+</html>
