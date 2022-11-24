@@ -207,9 +207,14 @@
             $(document).ready(function () {
                 var $h2 = $('h2');
 
-                setTimeout(function () {
-                    throw 'asd';
-                }, 1000);
+                console.log('Log: this should be visible');
+                console.debug('Debug: this should be visible');
+                console.warn('Warn: this should be visible');
+                console.error('Error: this should be visible');
+
+                // setTimeout(function () {
+                //     throw 'asd';
+                // }, 1000);
 
                 $('#submit').click(function () {
                     var debugText = JSON.stringify(console.everything, null, 4);
